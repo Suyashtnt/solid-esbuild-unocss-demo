@@ -1,0 +1,16 @@
+packages = ["alejandra", "deno", "treefmt", "taplo-cli"]
+
+[[commands]]
+package = "deno"
+name = "deno"
+help = "run deno"
+
+[[commands]]
+name = "build"
+command = "deno task build"
+help = "build the app"
+
+[[commands]]
+command = "deno task ssr"
+name = "ssr"
+help = "run SSR for the app"

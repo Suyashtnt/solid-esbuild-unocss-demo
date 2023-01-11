@@ -1,0 +1,26 @@
+{
+  "imports": {
+    "std/": "https://deno.land/std@0.171.0/",
+    "solid-js": "npm:solid-js",
+    "uno.css": "./uno.css",
+    "solid-js/web": "npm:solid-js/web",
+    "@solidjs/router": "npm:@solidjs/router",
+    "svgo": "https://esm.sh/svgo@3.0.2?bundle",
+    "esbuild": "https://deno.land/x/esbuild@v0.15.13/mod.js",
+    "esbuild-plugin-import-map": "https://esm.sh/esbuild-plugin-import-map@2.1.0",
+    "esbuild-plugin-solid": "https://esm.sh/esbuild-plugin-solid@0.4.2",
+    "esbuild-plugin-http-imports": "https://deno.land/x/esbuild_plugin_http_imports@v1.2.4/index.ts",
+    "babel-preset-solid": "https://esm.sh/babel-preset-solid@1.6.7",
+    "@babel/preset-typescript": "https://esm.sh/@babel/preset-typescript@7.18.6",
+    "@babel/core": "https://esm.sh/@babel/core@7.20.12",
+    "@unocss/core": "https://esm.sh/@unocss/core@0.48.3",
+    "@unocss/preset-uno": "https://esm.sh/@unocss/preset-uno@0.48.3",
+    "@unocss/preset-attributify": "https://esm.sh/@unocss/preset-attributify@0.48.3",
+    "@unocss/config": "https://esm.sh/@unocss/config@0.48.3",
+    "@unocss/transformer-attributify-jsx": "https://esm.sh/@unocss/transformer-attributify-jsx@0.48.3",
+    "@rollup/pluginutils": "https://esm.sh/@rollup/pluginutils@5.0.2",
+    "magic-string": "https://esm.sh/magic-string@0.27.0/",
+    "@ampproject/remapping": "https://esm.sh/@ampproject/remapping@2.2.0",
+    "rollup": "https://esm.sh/rollup@3.9.1"
+  }
+}

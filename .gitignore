@@ -2,3 +2,4 @@
 /server
 /temp
 /.direnv
+/node_modules

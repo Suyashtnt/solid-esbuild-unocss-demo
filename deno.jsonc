@@ -10,7 +10,7 @@
     "jsxImportSource": "npm:solid-js"
   },
   "tasks": {
-    "build": "deno run --allow-env --allow-write --allow-read --allow-run --allow-sys --allow-net './scripts/build.ts'",
+    "build": "deno run --allow-env --allow-write --allow-read --allow-run --allow-sys --allow-net --node-modules-dir './scripts/build.ts'",
     "ssr": "deno run --allow-env --allow-write --allow-read --allow-net --allow-run --unstable './scripts/ssr.ts'"
   },
   "importMap": "import_map.json"

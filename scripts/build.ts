@@ -11,9 +11,14 @@ const WATCH = Deno.args.join().includes("--watch");
 const SSR_MAP = JSON.parse(Deno.readTextFileSync("./import_map.json"));
 const MAP = JSON.parse(Deno.readTextFileSync("./import_map.json"));
 
-SSR_MAP.imports["solid-js"] = "https://esm.sh/solid-js@1.6.8";
-SSR_MAP.imports["solid-js/web"] = "https://esm.sh/solid-js@1.6.8/web";
-SSR_MAP.imports["@solidjs/router"] = "https://esm.sh/@solidjs/router@0.6.0";
+// so how cursed do you want your imports to be?
+// Y E S
+SSR_MAP.imports["solid-js"] =
+  "https://esm.sh/v102/solid-js@1.6.8/node/solid-js.js";
+SSR_MAP.imports["solid-js/web"] =
+  "https://esm.sh/v102/solid-js@1.6.8/node/web.js";
+SSR_MAP.imports["@solidjs/router"] =
+  "https://esm.sh/v102/@solidjs/router@0.6.0/node/router.js";
 
 // despite the rest using esm.sh, skypack was used here in the original repo, so I'm keeping it but pinning it
 MAP.imports["solid-js"] =
@@ -58,6 +63,7 @@ export async function build_project() {
       }),
     ],
     incremental: WATCH,
+    sourcemap: "inline",
     watch: WATCH,
   });
 
@@ -67,13 +73,14 @@ export async function build_project() {
     ],
     bundle: true,
     minify: true,
+    conditions: ["node", "solid"],
     allowOverwrite: true,
     outfile: "server/server.js",
     platform: "node",
     format: "esm",
     target: "esnext",
     define: {
-      server: JSON.stringify(false),
+      server: JSON.stringify(true),
     },
     plugins: [
       // @ts-expect-error this works
@@ -81,12 +88,15 @@ export async function build_project() {
         defaultToJavascriptIfNothingElseFound: true,
       }),
     ],
+    sourcemap: "inline",
     incremental: WATCH,
     watch: WATCH,
   });
 
   // CSR
   await load(MAP);
+
+  // transform
   await build({
     entryPoints: [
       "src/client.tsx",
@@ -122,10 +132,11 @@ export async function build_project() {
   await build({
     entryPoints: [
       "temp/client.js",
+      "temp/client.css",
     ],
-    bundle: true,
     minify: true,
     splitting: true,
+    bundle: true,
     allowOverwrite: true,
     outdir: "public",
     platform: "browser",

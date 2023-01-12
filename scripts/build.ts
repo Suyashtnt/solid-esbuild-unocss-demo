@@ -13,12 +13,11 @@ const MAP = JSON.parse(Deno.readTextFileSync("./import_map.json"));
 
 // so how cursed do you want your imports to be?
 // Y E S
-SSR_MAP.imports["solid-js"] =
-  "https://esm.sh/v102/solid-js@1.6.8/node/solid-js.js";
-SSR_MAP.imports["solid-js/web"] =
-  "https://esm.sh/v102/solid-js@1.6.8/node/web.js";
+// dev is used for import mapping and stuff
+SSR_MAP.imports["solid-js"] = "https://esm.sh/solid-js@1.6.8/?dev";
+SSR_MAP.imports["solid-js/web"] = "https://esm.sh/solid-js@1.6.8/web/?dev";
 SSR_MAP.imports["@solidjs/router"] =
-  "https://esm.sh/v102/@solidjs/router@0.6.0/node/router.js";
+  "https://esm.sh/@solidjs/router@0.6.0/dist/index.jsx/?dev";
 
 // despite the rest using esm.sh, skypack was used here in the original repo, so I'm keeping it but pinning it
 MAP.imports["solid-js"] =
@@ -39,14 +38,14 @@ export async function build_project() {
     ],
     bundle: true,
     allowOverwrite: true,
-    outfile: "./server/server.js",
+    outdir: "server",
+    external: ["solid-js", "solid-js/web", "@solidjs/router"],
     platform: "node",
     format: "esm",
     target: "esnext",
     define: {
       "isServer": JSON.stringify(true),
-    },
-    plugins: [
+    }, plugins: [
       svgPlugin({
         type: "solid",
         compile: true,
@@ -64,32 +63,6 @@ export async function build_project() {
     ],
     incremental: WATCH,
     sourcemap: "inline",
-    watch: WATCH,
-  });
-
-  await build({
-    entryPoints: [
-      "server/server.js",
-    ],
-    bundle: true,
-    minify: true,
-    conditions: ["node", "solid"],
-    allowOverwrite: true,
-    outfile: "server/server.js",
-    platform: "node",
-    format: "esm",
-    target: "esnext",
-    define: {
-      server: JSON.stringify(true),
-    },
-    plugins: [
-      // @ts-expect-error this works
-      httpImports({
-        defaultToJavascriptIfNothingElseFound: true,
-      }),
-    ],
-    sourcemap: "inline",
-    incremental: WATCH,
     watch: WATCH,
   });
 

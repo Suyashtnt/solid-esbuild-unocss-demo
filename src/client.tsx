@@ -1,4 +1,9 @@
 import { hydrate } from "solid-js/web";
 import App from "./App.tsx";
+import { Router } from "@solidjs/router";
 
-hydrate(() => <App />, document.getElementById("app")!);
+hydrate(() => (
+  <Router>
+    <App />
+  </Router>
+), document.getElementById("app")!);
